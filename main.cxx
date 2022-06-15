@@ -25,6 +25,7 @@ int main (int argc, char **argv)
   // =========================================================================
   std::string inputImage;
   std::string outputImage;
+  bool compressOutput;
 
   // =========================================================================
   // Parse arguments
@@ -35,14 +36,17 @@ int main (int argc, char **argv)
 
     TCLAP::ValueArg<std::string> input("i", "input", "Image to compute the output", true, "None", "string");
     TCLAP::ValueArg<std::string> output("o", "output", "Cropped imge", false, "None", "string");
+    TCLAP::SwitchArg compress("c", "compress", "Compress output", false);
 
     cmd.add(input);
     cmd.add(output);
+    cmd.add(compress);
 
     cmd.parse(argc,argv);
 
     inputImage = input.getValue();
     outputImage = output.getValue();
+    compressOutput = compress.getValue();
 
   } catch (TCLAP::ArgException &e) {
     std::cerr << "error: " << e.error() << " for arg " << e.argId() << std::endl;
@@ -93,6 +97,7 @@ int main (int argc, char **argv)
     auto outputWriter = ImageWriterType::New();
     outputWriter->SetFileName(outputImage);
     outputWriter->SetInput(extractImageFilter->GetOutput());
+    outputWriter->SetUseCompression(compressOutput);
     outputWriter->Write();
   }
 
