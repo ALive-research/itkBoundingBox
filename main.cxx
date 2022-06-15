@@ -55,7 +55,7 @@ int main (int argc, char **argv)
   // =========================================================================
   // ITK definitions
   // =========================================================================
-  using ImageType = itk::Image<unsigned short, 3>;
+  using ImageType = itk::Image<float, 3>;
   using ImageReaderType = itk::ImageFileReader<ImageType>;
   using ImageWriterType = itk::ImageFileWriter<ImageType>;
   using ShapeLabelObjectType = itk::ShapeLabelObject<ImageType::PixelType, ImageType::ImageDimension>;
